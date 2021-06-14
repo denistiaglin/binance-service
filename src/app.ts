@@ -28,8 +28,10 @@ mongoose.connect(
         console.log(process.env.NODE_ENV)
         console.log('Connected to database')
 
-        app.listen(3000, () => {
-            console.log('Server started on 3000')
+        const PORT = process.env.PORT
+
+        app.listen(PORT, () => {
+            console.log(`Server started on ${PORT}`)
         })
     }
 )
