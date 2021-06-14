@@ -1,0 +1,47 @@
+version: "3.5"
+
+
+services:
+
+  binance-service:
+    depends_on:
+      - binance-service-mongo
+      - binance-service-redis
+    image: binance-service
+    container_name: binance-service
+    restart: unless-stopped
+    ports:
+      - 127.0.0.7:3000:3000
+    volumes:
+      - /www/binance-service:/www/binance-servise
+    networks:
+      - binance-service
+
+
+  binance-service-redis:
+    image: redis
+    container_name: binance-service-redis
+    restart: unless-stopped
+    ports:
+      - 127.0.0.7:6379:6379
+    volumes:
+      - /databases/redis/binance-service:/data
+    networks:
+      - binance-service
+
+
+  binance-service-mongo:
+    image: mongo
+    container_name: binance-service-mongo
+    restart: unless-stopped
+    ports:
+      - 127.0.0.7:27017:27017
+    volumes:
+      - /databases/mongo/binance-service:/data/db
+    networks:
+      - binance-service
+
+
+networks:
+  binance-service:
+    driver: bridge
